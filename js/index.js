@@ -36,7 +36,7 @@ function worldGravity() {
 }
 // 		Spawna i tubi
 function tubesSpawn() {
-    var randomHeight = (Math.random() * 75);
+    var randomHeight = (Math.random() * 85);
     $('#tubi').append('<div style="height: ' + randomHeight + 'vh' + '"></div>');
     // 	 Definisce i tubi
     tubi = $('#tubi div');
