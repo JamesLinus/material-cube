@@ -22,8 +22,8 @@ var bird = $('#flappy');
 //  Definisce il battito di ali
 var flappyFly = function() {
     bird.animate({
-        'bottom': '+=15vh'
-    }, 50, 'linear');
+        'bottom': '+=14vh'
+    }, 100, 'linear');
 };
 // 		Crea la gravita'
 function worldGravity() {
@@ -31,12 +31,12 @@ function worldGravity() {
         bird.css('bottom', '0vh');
         // console.log(bird.attr('style').indexOf('bottom: -1px'))
     } else {
-        bird.css('bottom', goMove('-=', 0.5, 'vh'));
+        bird.css('bottom', '-=0.4vh');
     }
 }
 // 		Spawna i tubi
 function tubesSpawn() {
-    var randomHeight = (Math.random() * 60) + 10;
+    var randomHeight = (Math.random() * 75);
     $('#tubi').append('<div style="height: ' + randomHeight + 'vh' + '"></div>');
     // 	 Definisce i tubi
     tubi = $('#tubi div');
@@ -49,7 +49,7 @@ function tubesMove() {
 
     tubi.each(function() {
         TweenMax.to($(this), 0.1, {
-            x: goMove('-=', 10, 'vw')
+            left: goMove('-=', 1, 'vw')
         });
     });
 
@@ -137,7 +137,7 @@ var worldGame = function() {
             removeTubes();
             flappyHit();
 
-            speed += 0.001;
+            speed += 0.005;
         }, 16.8);
     refresh2 =
         setInterval(function() {
