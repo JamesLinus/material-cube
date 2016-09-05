@@ -5,7 +5,7 @@ TweenMax.from($('.game'), 1, {
 });
 $('#infobutton').click(
     function() {
-        $('#info').toggle('fast');
+        $('#info').toggle();
     }
 );
 // 		Definisce la velocita'
