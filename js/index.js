@@ -11,7 +11,7 @@ TweenMax.from($('.game'), 1, {
 });
 $('#infobutton').click(
     function() {
-        $('#info').toggle();
+        $('#info').toggle('fast');
     }
 );
 // 		Definisce la velocita'
@@ -41,14 +41,9 @@ function worldGravity() {
 }
 // 		Spawna i tubi
 function tubesSpawn() {
-<<<<<<< HEAD
 
     var randomHeight = (Math.random() * 75);
     $('#tubi').append('<div class="mdl-shadow--4dp" style="height: ' + randomHeight + 'vh;' + 'background-color:' + $pcolor + '"></div>');
-=======
-    var randomHeight = (Math.random() * 77);
-    $('#tubi').append('<div style="height: ' + randomHeight + 'vh' + '"></div>');
->>>>>>> 17c60b1b9706734e580108464e9e8e835dad927f
     // 	 Definisce i tubi
     tubi = $('#tubi div');
 
@@ -89,7 +84,7 @@ function setScores() {
 function flappyHit() {
     if (curPipe().length > 0 && (curPipe().offset().top < bird.offset().top || bird.offset().top < 0 || curPipe().offset().top < (bird.offset().top + bird.height()))) {
         flappyDie();
-
+        
     }
 }
 // Random selector
@@ -146,7 +141,7 @@ var worldGame = function() {
             removeTubes();
             flappyHit();
 
-            speed += 0.0025;
+            speed += 0.005;
         }, 16.8);
     refresh2 =
         setInterval(function() {
