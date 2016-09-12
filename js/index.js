@@ -84,7 +84,7 @@ function setScores() {
 function flappyHit() {
     if (curPipe().length > 0 && (curPipe().offset().top < bird.offset().top || bird.offset().top < 0 || curPipe().offset().top < (bird.offset().top + bird.height()))) {
         flappyDie();
-        
+
     }
 }
 // Random selector
@@ -242,6 +242,7 @@ function settingsApply() {
   $('#flappy, button, .score, #tubi div, .mdl-card, .mdl-tabs__tab-bar').css('background-color', $pcolor);
   $('body').css('background-color', $scolor);
   sheet.innerHTML = '.is-active .material-icons, .is-focused, .mdl-button, .mdl-tabs__tab.is-active:after {color:' + $acolor + '!important} .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after, is-focused, .mdl-ripple, .mdl-textfield__label:after {background-color:' + $acolor + '!important}';
+  $('meta[name="theme-color"]').prop('content', $scolor);
   document.body.appendChild(sheet);
 }
 
