@@ -1,57 +1,134 @@
 <!DOCTYPE html>
-<html >
-  <head>
+<html manifest="game.appcache">
+
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!--320-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <!--320-->
     <title>Material cube, the game, by Lorenzo Miglietta</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-      <meta name="description" content="A material based game for your free time. It's made with html5 and it uses jquery and gsap to manipulate and animate the dom. Is complitely free to use. I am going to release the source code on github, so stay tuned.">
-  </head>
+    <link rel="stylesheet" href="css/index.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
 
-  <body>
+    <meta name="description" content="A material based game for your free time. It's made with html5 and it uses jquery and gsap to manipulate and animate the dom. Is complitely free to use. I am going to release the source code on github, so stay tuned.">
+</head>
 
-    <div class="game">
-	<div id="interface">
-    <div class="start">
-      <button id="play">Play</button>
+<body>
+
+    <!-- <div class="game">
+        <div id="interface">
+
+            <div id="info" class="modal">
+                <h3>Material cube <br> <small>A game developed by Lorenzo Miglietta</small></h3>
+                <h4>Made with the following technologies: </h4>
+                <ul>
+                    <li>Html</li>
+                    <li>Css</li>
+                    <li>Javascript</li>
+                </ul>
+                <h4>Special thanks to: </h4>
+                <ul>
+                    <li>Nobody</li>
+                </ul>
+
+            </div>
+        </div>
+
+
+    </div> -->
+
+    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="interface">
+            <div class="mdl-tabs__tab-bar mdl-header mdl-shadow--4dp">
+                <a href="#game-panel" class="mdl-tabs__tab is-active"><i class="material-icons">home</i></a>
+                <a href="#info-panel" class="mdl-tabs__tab"><i class="material-icons">info</i></a>
+                <a href="#settings-panel" class="mdl-tabs__tab"><i class="material-icons">settings</i></a>
+                <a href="#targaryens-panel" class="mdl-tabs__tab"><i class="material-icons">share</i></a>
+            </div>
+
+        </div>
+
+
+        <div class="mdl-tabs__panel is-active" id="game-panel">
+            <div class="interface">
+
+                <button id="play" class="mdl-shadow--8dp mdl-button mdl-js-button mdl-button--raised">Play</button>
+
+            </div>
+            <div class="score mdl-shadow--4dp">
+                <h1 id="score"></h1>
+            </div>
+            <div class="objects">
+                <div class="mdl-shadow--4dp"
+                 id="flappy"></div>
+                <div id="tubi"></div>
+            </div>
+
+        </div>
+        <div class="mdl-tabs__panel" id="info-panel">
+            <div class="mdl-grid">
+
+                    <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col mdl-cell--3-offset-desktop mdl-cell--12-col-tablet">
+                        <div style="background: url('https://benjaminbenben.com/img/example-trefoil.gif') center / cover; height: 300px" class="mdl-card__media">
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                            <h4>Material cube</h4>
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                            A material based game for your free time. It's made with html5 and it uses jquery and gsap to manipulate and animate the dom. Is complitely free to use. I am going to release the source code on github, so stay tuned.
+                        </div>
+                    </div>
+
+
+            </div>
+        </div>
+        <div class="mdl-tabs__panel" id="settings-panel">
+            <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--6-col mdl-cell--3-offset-desktop mdl-cell--12-col-tablet mdl-card mdl-shadow--4dp">
+                <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Settings</h2>
+  </div>
+                <div class="mdl-card__supporting-text">
+                  <!-- Simple Textfield -->
+                  <p>Here you can set some custom settings for this game</p>
+<form action="#">
+
+  <div class="mdl-textfield mdl-js-textfield">
+
+    <input class="mdl-textfield__input" type="text" id="objectColor">
+    <label class="mdl-textfield__label" for="objectColor">objectColor(example: blue)</label>
+
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="backgroundColor">
+    <label class="mdl-textfield__label" for="backgroundColor">backgroundColor(example: #333)</label>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="accentColor">
+    <label class="mdl-textfield__label" for="accentColor">accentColor(example: red)</label>
+  </div>
+</form>
+
+                </div>
+                <div class="mdl-card__actions">
+  <button id="apply" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Apply</button>
+  </div>
+              </div>
+            </div>
+        </div>
     </div>
-
-    <div class="navbar">
-      <a id="infobutton"><i class="material-icons">info_outline</i></a>
-    </div>
-    <div id="info" class="modal">
-      <h3>Material cube <br> <small>A game developed by Lorenzo Miglietta</small></h3>
-      <h4>Made with the following technologies: </h4>
-      <ul>
-        <li>Html</li>
-        <li>Css</li>
-        <li>Javascript</li>
-      </ul>
-      <h4>Special thanks to: </h4>
-      <ul>
-        <li>Nobody</li>
-      </ul>
-
-    </div>
-	</div>
-
-	<div class="play">
-		<h1 id="score"></h1>
-<div id="flappy"></div>
-<div id="tubi"></div>
-	</div>
-</div>
     <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
 
-        <script src="js/index.js"></script>
-
-
+    <script src="js/index.js"></script>
 
 
 
-  </body>
+
+    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+</body>
+
 </html>

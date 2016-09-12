@@ -1,3 +1,10 @@
+var $randomColor = "#" + ((1 << 24) * Math.random() | 0).toString(16);
+var $normalColor = 'rgb(63,81,181)';
+var $black = '#111';
+var $white = '#fcfcfc';
+var $pcolor = localStorage.getItem('objectColor');
+var $scolor = localStorage.getItem('backgroundColor');
+var $acolor = localStorage.getItem('accentColor');
 $('#score').text('Record: ' + localStorage.getItem('record'));
 var hit = new Audio('sound/hit.wav');
 TweenMax.from($('.game'), 1, {
@@ -11,8 +18,7 @@ $('#infobutton').click(
 // 		Definisce la velocita'
 var speed = 0.8;
 var tubi;
-var firstColor = "#" + ((1 << 24) * Math.random() | 0).toString(16);
-$('body').css('background', firstColor);
+
 // 		Definisce i movimenti
 function goMove(sign, x, y) {
     return sign + x * speed + y;
@@ -36,8 +42,9 @@ function worldGravity() {
 }
 // 		Spawna i tubi
 function tubesSpawn() {
+
     var randomHeight = (Math.random() * 75);
-    $('#tubi').append('<div style="height: ' + randomHeight + 'vh' + '"></div>');
+    $('#tubi').append('<div class="mdl-shadow--4dp" style="height: ' + randomHeight + 'vh;' + 'background-color:' + $pcolor + '"></div>');
     // 	 Definisce i tubi
     tubi = $('#tubi div');
 
@@ -104,13 +111,11 @@ var worldGame = function() {
 
     speed = 0.8;
     points = -1;
-    var firstColor = "#" + ((1 << 24) * Math.random() | 0).toString(16);
-    $('body').css('background', firstColor);
     startGame = new TimelineMax();
-    startGame.to($('#score'), 0.2, {
+    startGame.to($('.score'), 0.2, {
         y: '-50px'
     });
-    startGame.to($('#score'), 0, {
+    startGame.to($('.score'), 0, {
         y: 0,
         x: '-150px',
         width: '10%'
@@ -122,7 +127,7 @@ var worldGame = function() {
         bottom: '50vh',
         'border-radius': 0
     });
-    startGame.to($('#score'), 0.2, {
+    startGame.to($('.score'), 0.2, {
         y: 0,
         x: 0,
         delay: 1,
@@ -145,7 +150,7 @@ var worldGame = function() {
             tubesSpawn();
 
         }, 1000);
-    $('#interface').toggle();
+    $('.interface').toggle();
 };
 
 function worldRecord() {
@@ -171,18 +176,18 @@ function flappyDie() {
         ease: Circ
     });
 
-    finishGame.to($('#score'), 0.2, {
+    finishGame.to($('.score'), 0.2, {
         x: '-150px'
     });
 
 
-    finishGame.to($('#score'), 0, {
+    finishGame.to($('.score'), 0, {
         x: 0,
         y: -40,
         width: '100%',
         'border-radius': '0px'
     });
-    finishGame.to($('#score'), 0.2, {
+    finishGame.to($('.score'), 0.2, {
         x: 0,
         y: 0,
         width: '100%'
@@ -190,12 +195,14 @@ function flappyDie() {
     });
 
 
-    $('#interface').toggle();
+    $('.interface').toggle();
 
     tubi.remove();
     // 	 aggiorna cache dei tubi
     tubi = $('#tubi div');
-    setTimeout(function () {worldRecord();}, 400);
+    setTimeout(function() {
+        worldRecord();
+    }, 400);
 
 }
 
@@ -217,3 +224,34 @@ $('body').keypress(
         flappyFly();
     }
 );
+
+// Apply settings after they are set
+function settingsSet() {
+  localStorage.setItem('objectColor', $('#objectColor').val());
+  localStorage.setItem('backgroundColor', $('#backgroundColor').val());
+  localStorage.setItem('accentColor', $('#accentColor').val());
+  settingsApply();
+}
+function settingsGet() {
+  $pcolor = localStorage.getItem('objectColor');
+  $scolor = localStorage.getItem('backgroundColor');
+  $acolor = localStorage.getItem('accentColor');
+}
+function settingsApply() {
+  settingsGet();
+  var sheet = document.createElement('style');
+  $('#flappy, button, .score, #tubi div, .mdl-card, .mdl-tabs__tab-bar').css('background-color', $pcolor);
+  $('body').css('background-color', $scolor);
+  sheet.innerHTML = '.is-active .material-icons, .is-focused, .mdl-button, .mdl-tabs__tab.is-active:after {color:' + $acolor + '!important} .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after, is-focused, .mdl-ripple, .mdl-textfield__label:after {background-color:' + $acolor + '!important}';
+  document.body.appendChild(sheet);
+}
+
+// Apply settings onclick
+$('#apply').click(function() {
+    settingsSet();
+});
+
+// Apply settings on start
+(function start() {
+    settingsApply();
+})();
