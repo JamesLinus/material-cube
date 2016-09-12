@@ -47,6 +47,7 @@ body {
   width: 10vw;
   left: 100vw;
   bottom: 0;
+  background-color: white
 }
 
 .navbar {
@@ -123,4 +124,36 @@ body {
 }
 .mdl-tabs__tab.is-active .material-icons {
   color: $pcolor
+}
+
+.loader {
+  height: 100vh;
+  width: 100vw;
+  background-color: white;
+  position: fixed;
+  z-index: 999999999999999;
+  animation: loading 2s forwards;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+.loader img {
+  max-width: 100px
+}
+img {
+  width: 100%;
+}
+@keyframes loading {
+  0% {
+    opacity: 1
+  }
+  30% {
+    opacity: 1
+  }
+  100% {
+    opacity: 0;
+    display: none;
+    visibility: hidden;
+  }
 }

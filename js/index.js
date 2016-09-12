@@ -6,7 +6,6 @@ var $pcolor = localStorage.getItem('objectColor');
 var $scolor = localStorage.getItem('backgroundColor');
 var $acolor = localStorage.getItem('accentColor');
 $('#score').text('Record: ' + localStorage.getItem('record'));
-var hit = new Audio('sound/hit.wav');
 TweenMax.from($('.game'), 1, {
     opacity: 0
 });
@@ -85,7 +84,7 @@ function setScores() {
 function flappyHit() {
     if (curPipe().length > 0 && (curPipe().offset().top < bird.offset().top || bird.offset().top < 0 || curPipe().offset().top < (bird.offset().top + bird.height()))) {
         flappyDie();
-        hit.play();
+
     }
 }
 // Random selector
