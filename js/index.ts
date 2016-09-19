@@ -8,9 +8,28 @@ var randomNumber = Math.random() * 1;
 // Set The basic variables
 var w = window.innerWidth;
 var h = window.innerHeight;
+function show(element, type = 'flex') {
+  element.style.display = type
+}
+function hide(element) {
+  element.style.display = 'none'
+}
+var interface = {
+  all: document.getElementById('interface'),
+  buttons: {
+    all: document.getElementById('buttoncontainer'),
+    info: document.getElementById('info'),
+    play: document.getElementById('play'),
+    settings: document.getElementById('settings')
+  },
+  tabs: {
+    infotab: document.getElementById('infotab')
+  }
+}
 var canvas = <HTMLCanvasElement>document.getElementById('myCanvas');
 var ctx = canvas.getContext("2d");
 var startGame;
+
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -21,28 +40,46 @@ function resizeCanvas() {
         return Math.random() * canvas.width
     }
     var objects = {
+        world: {
+            gravity: 0.35
+        },
         bird: {
-            height: 100,
-            width: 100,
+            height: canvas.height/10,
+            width: canvas.height/10,
             speedX: 0,
-            speedY: 1.015,
+            speedY: 1,
             posX: function() {
-                return canvas.width / 2 - this.width
+                return canvas.width / 2 - this.width / 2
             },
             posY: 5,
             check: function() {
                 return this.posX
             },
+            bounce: function() {
+                if (this.posY + this.height > canvas.height) {
+                    this.posY += -4;
+                    this.speedY *= -.8;
+                } else if (this.posY < 0) {
+                    this.posY += 4;
+                    this.speedY *= -.8;
+                }
+            },
             draw: function() {
-
-                ctx.fillRect(this.posX(), this.posY *= this.speedY, 100, 100);
+                this.bounce();
+                ctx.fillRect(this.posX(), this.posY += this.speedY += objects.world.gravity, this.width, this.height);
             },
             die: function() {
-                if (((this.posX() > objects.tube.posX || (this.posX() + this.width) > objects.tube.posX) && this.posX() < (objects.tube.posX + objects.tube.width)) && ((this.posY > objects.tube.posY() || (this.posY + this.height) > objects.tube.posY()) && this.posY < (objects.tube.posY() + objects.tube.height)))  {
-                    clearInterval(startGame);
-                    console.log('dovresti morir')
-                }
+                if (((this.posX() > objects.tube.posX || (this.posX() + this.width) > objects.tube.posX) && this.posX() < (objects.tube.posX + objects.tube.width)) && ((this.posY > objects.tube.posY() || (this.posY + this.height) > objects.tube.posY()) && this.posY < (objects.tube.posY() + objects.tube.height))) {
 
+
+                    console.log(this.height);
+                    window.cancelAnimationFrame(startGame);
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    objects.tube.posX = canvas.width;
+                    objects.points.value = 0;
+                    this.posY = 0;
+                    show(interface.all)
+                }
             }
 
         },
@@ -52,11 +89,12 @@ function resizeCanvas() {
             style: function() {
                 ctx.fillStyle = '#fcfcfc';
                 ctx.shadowBlur = 10;
-                ctx.shadowColor = '#111'
+                ctx.shadowColor = '#111';
+                ctx.font = '20px Georgia'
             },
-            speedX: canvas.width / 200,
+            speedX: canvas.width / 100,
             speedY: 0,
-            posX: canvas.width*2,
+            posX: canvas.width * 2,
             posY: function() {
                 if (randomNumber > 0.5) {
                     return canvas.height - this.height;
@@ -71,12 +109,24 @@ function resizeCanvas() {
                 ctx.fillRect(this.posX -= this.speedX, this.posY(), this.width, this.height);
                 if (this.posX < 0) {
                     this.posX = canvas.width;
+                    objects.points.value += 1;
                     var randomHeight = function() {
                         return Math.random() * (canvas.height - 200)
                     }
                     this.height = randomHeight();
                     randomNumber = Math.random() * 1;
+
                 }
+            }
+        },
+        points: {
+            value: 0,
+            style: function() {
+                ctx.font = '30px Verdana'
+            },
+            draw: function() {
+                this.style();
+                ctx.fillText(this.value, canvas.height / 25, canvas.height - canvas.height / 25)
             }
         }
     }
@@ -84,17 +134,15 @@ function resizeCanvas() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         objects.tube.style();
         objects.bird.draw();
-
         objects.tube.draw();
+        objects.points.draw();
+        startGame = window.requestAnimationFrame(drawStuff);
         objects.bird.die();
     }
-    startGame = setInterval(drawStuff, 10);
     function birdFlapStart() {
-        objects.bird.speedY = .985;
+        objects.bird.speedY = -10;
     }
-    function birdFlapStop() {
-        objects.bird.speedY = 1.015;
-    }
+
     canvas.addEventListener('mousedown', function(e) {
         birdFlapStart();
         e.preventDefault()
@@ -103,18 +151,29 @@ function resizeCanvas() {
         birdFlapStart();
         e.preventDefault()
     }, false);
-    canvas.addEventListener('mouseup', function(e) {
-        birdFlapStop();
-        e.preventDefault()
-    }, false);
-    canvas.addEventListener('touchend', function(e) {
-        birdFlapStop();
-        e.preventDefault()
-    }, false);
+
     /**
      * Your drawings need to be inside this function otherwise they will be reset when
      * you resize the browser window and the canvas goes will be cleared.
      */
-    drawStuff();
+    //  interface.tab.onClick = function switchTab(event) {
+     //
+    //    console.log('ciao');
+    //    event.preventDefault();
+    //  }
+
+    interface.buttons.play.onclick = function () {
+      drawStuff();
+      hide(interface.all)
+    }
+    interface.buttons.info.onclick = function () {
+      show(interface.tabs.infotab)
+    }
 }
-resizeCanvas();
+
+window.onload = function () {
+
+    show(interface.buttons.all, 'block');
+    resizeCanvas();
+
+};

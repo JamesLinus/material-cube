@@ -1,159 +1,127 @@
-$bcolor: rgba(0, 0, 0, .1);
-$material-shadow: 0 2px 7px -1px $bcolor;
-$pcolor: rgb(63,81,181);
-body,
+$black: #333;
+$white: #fcfcfc;
+$pcolor: rgb(221, 39, 33);
+$shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.67);
+body {
+  background: rgb(251, 62, 6);
+  margin: 0;
+
+}
+
 html {
-  height: 100%;
-  width: 100%;
-}
-
-body {
-  background-color: $pcolor;
-}
-
-#play {
-  left: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%) translateX(-50%) scale(2);
-  z-index: 99999;
-  background-color: #fff;
-}
-
-body {
-  margin: 0;
-}
-
-#score {
-  text-align: center;
-  padding: 6px;
-  width: 100%;
-  margin: 0;
-  font-size: 28px;
-}
-
-#flappy {
-  position: absolute;
-  left: 45vw;
-  bottom: 50vh;
-  width: 10vh;
-  height: 10vh;
-  opacity: 0;
-  background-color: white;
-}
-
-.tube {
-  position: absolute;
-  width: 10vw;
-  left: 100vw;
-  bottom: 0;
-  background-color: white
-}
-
-.navbar {
-  bottom: 0;
-  height: 50px;
-  display: flex;
-  width: 100vw;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  background-color: white;
-  box-shadow: $material-shadow;
-  position: absolute;
-}
-
-.tab.active {
-  box-shadow: 0 -4px 0 $pcolor inset;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-.score {
-  width: 100%;
-  background-color: white;
-  box-shadow: $material-shadow;
-  height: 50px;
-  min-width: 100px;
-}
-
-.tab {
-  width: 100%;
-  text-align: center;
-  height: 100%;
-}
-
-.tab .material-icons {
-  padding: 12px;
-}
-
-body {
   overflow: hidden;
 }
 
-.modal {
-  position: fixed;
-  z-index: 999;
-  display: none;
-  margin: 35px;
-  width: calc(100% - 110px);
-  height: calc(100% - 110px);
-  padding: 20px;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: $material-shadow;
-}
-
 .interface {
-  top: 0;
-  z-index: 9;
-}
-
-.mdl-header {
-  position: absolute;
-  bottom: 0;
-  height: 48px;
-  background-color: white;
-  width: 100vw;
-}
-
-.mdl-header .material-icons {
-  padding: 12px;
-}
-
-.mdl-tabs__tab.is-active {
-  background-color: $bcolor;
-}
-.mdl-tabs__tab.is-active .material-icons {
-  color: $pcolor
-}
-
-.loader {
   height: 100vh;
   width: 100vw;
-  background-color: white;
-  position: fixed;
-  z-index: 999999999999999;
-  animation: loading 2s forwards;
+  position: absolute;
+  z-index: 99;
   display: flex;
-  align-content: center;
   align-items: center;
   justify-content: center;
+  top: 0;
 }
-.loader img {
-  max-width: 100px
+
+.button {
+  box-shadow: $shadow;
+  border: 0px solid;
+  background-color: white;
+  border-radius: 500px;
+  padding: 10px;
+  font-size: 0px;
+  opacity: 0;
+  animation: showbuttons 300ms forwards;
+  margin: 1vw;
+  transition: 300ms;
 }
-img {
-  width: 100%;
+.button:hover {
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.67);
+
 }
-@keyframes loading {
+@keyframes showbuttons {
   0% {
-    opacity: 1
+    transform: scale(0.3) rotateZ(45deg);
+    opacity: 0
   }
-  30% {
-    opacity: 1
+  60% {
+    transform: scale(1.1) rotateZ(-10deg);
   }
   100% {
-    opacity: 0;
-    display: none;
-    visibility: hidden;
+    transform: scale(1);
+    opacity: 1
   }
 }
+
+.button#info {
+  left: 25%;
+  animation-delay: 150ms
+}
+.button#settings {
+  left: 75%;
+  animation-delay: 150ms
+}
+.material-icons.large {
+  font-size: 15vw
+}
+.material-icons.small {
+  font-size: 10vw
+}
+.card {
+  box-shadow: $shadow;
+  background-color: $white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  animation: show 300ms
+}
+@keyframes show {
+  0% {
+    transform: translateY(100px);
+    opacity: 0
+  }
+
+  100% {
+    transform: translateY(0px);
+    opacity: 1
+  }
+}
+//
+// navbar .tabs {
+//   display: flex;
+//   margin: 0;
+//   padding: 0;
+//   flex-direction: row;
+//   align-items: center;
+//   justify-content: space-around;
+//   list-style: none;
+//   position: absolute;
+//   bottom: 0;
+//   width: 100vw;
+//   background-color: white
+// }
+//
+// navbar a {
+//     display: flex;
+//     width: 100%;
+//     justify-content: space-around;
+//     height: 50px;
+//     align-items: center;
+//     text-decoration: none;
+//
+// }
+//
+// .material-icons {
+//   color: $black
+// }
+//
+// .is-active .material-icons {
+//   color: $pcolor;
+//
+// }
+//
+// a.is-active {
+//   box-shadow: 0px -4px $pcolor inset
+// }

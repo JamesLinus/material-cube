@@ -3,30 +3,36 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#db5945">
     <!--320-->
     <title>Material cube, the game, by Lorenzo Miglietta</title>
     <meta name="description" content="A material based game for your free time. It's made with html5 and it uses jquery and gsap to manipulate and animate the dom. Is complitely free to use. I am going to release the source code on github, so stay tuned.">
+    <link rel="stylesheet" href="css/index.min.css" media="screen" title="no title" charset="utf-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 </head>
-<style>
-  body {
-    background-color: #333;
-    margin: 0
-  }
-  html {
-    overflow: hidden;
-  }
-</style>
+
 <body>
-
     <canvas id="myCanvas"></canvas>
+    <div id="interface" class="interface">
+      <div id="buttoncontainer" style="display: none" class="buttons">
+        <button class="button" id="info" type="button" name="button"><i class="material-icons small">info</i></button>
+        <button class="button" id="play" type="button" name="button"><i class="material-icons large">play_arrow</i></button>
+        <button class="button" id="settings" type="button" name="button"><i class="material-icons small">settings</i></button>
+      </div>
+      <div class="tabs">
+        <div style="display: none" id="infotab"
+         class="info card">
+           <h2>
+             Material cube
+           </h2>
+           <p>This game is currently in beta, reload the game/page to close this</p>
+         </div>
+      </div>
 
+    </div>
     <script src="js/index.js"></script>
-
-
-
-
 </body>
 
 </html>
