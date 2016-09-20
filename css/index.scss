@@ -1,5 +1,5 @@
 $black: #333;
-$white: #fcfcfc;
+$white: #fff;
 $pcolor: rgb(255, 93, 1);
 $shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.67);
 body {
@@ -23,20 +23,32 @@ html {
   justify-content: center;
   top: 0;
 }
-
-.buttoncontainer h4,button {
-  box-shadow: $shadow;
+.btn {
   border: 0px solid;
   background-color: white;
-  border-radius: 500px;
+  color: $pcolor;
   padding: 10px;
-  font-size: 0px;
-  opacity: 0;
-  animation: show 300ms forwards;
-  margin: 1vw;
   transition: 300ms;
 }
-.buttoncontainer h4:hover,button:hover {
+.btn-raised {
+  box-shadow: $shadow;
+}
+.action {
+  float: right;
+  bottom: 0
+}
+.btn-icon {
+  font-size: 0px;
+  border-radius: 500px;
+  opacity: 0;
+  color: black;
+  animation: show 300ms forwards;
+  margin: 1vw;
+}
+.btn:hover {
+  background-color: rgb(230, 230, 230)
+}
+.btn-raised:hover {
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.67);
 }
 @keyframes showbuttons {
@@ -53,33 +65,32 @@ html {
   }
 }
 
-.button#info {
+.btn#info {
   left: 25%;
   animation-delay: 50ms
 }
-.button#settings {
+.btn#settings {
   left: 75%;
   animation-delay: 100ms
 }
 h4#score {
-  font-size: 5vw;
+  font-size: 20px;
   animation-delay: 150ms;
   text-align: center;
 }
 .material-icons.large {
-  font-size: 15vw
+  font-size: 50px
 }
 .material-icons.small {
-  font-size: 10vw
+  font-size: 35px
 }
-.card {
-  box-shadow: $shadow;
+.card-popup {
+  box-shadow: 0px 0px 25px 0px black;
   background-color: $white;
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
-  height: 100vh;
-  width: 100vw;
+  width: calc(100vw - 40px);
   animation: show 300ms;
   padding: 20px
 }
