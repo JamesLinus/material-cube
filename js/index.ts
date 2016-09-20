@@ -1,8 +1,8 @@
-
+var sheet = document.createElement('style')
 // Set primary color
-var $pcolor = 'rgb(0, 73, 249)';
+var pcolor = 'rgb(0, 73, 249)';
 // Set secondary color
-var $scolor = '#333';
+var scolor = '#333';
 var randomNumber = Math.random() * 1;
 
 // Set The basic variables
@@ -81,7 +81,6 @@ function resizeCanvas() {
             die: function() {
                 if (((this.posX() > objects.tube.posX || (this.posX() + this.width) > objects.tube.posX) && this.posX() < (objects.tube.posX + objects.tube.width)) && ((this.posY > objects.tube.posY() || (this.posY + this.height) > objects.tube.posY()) && this.posY < (objects.tube.posY() + objects.tube.height))) {
                     setRecord();
-                    console.log(this.height);
                     window.cancelAnimationFrame(startGame);
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     objects.tube.posX = canvas.width;
@@ -189,6 +188,19 @@ document.getElementById('settings').onclick = function() {
 document.getElementById('closesettings').onclick = function() {
   hide(document.getElementById('settingstab'))
 }
+document.getElementById('applysettings').onclick = function() {
+  pcolor = (<HTMLInputElement>document.getElementById('color')).value;
+  refreshStyle();
+}
+function refreshStyle() {
+  sheet.innerHTML = `body {
+    background-color: ${pcolor}
+  }
+  .btn {
+    color: ${pcolor}
+  }`;
+}
+document.body.appendChild(sheet);
 window.onload = function() {
 
     show(interface.elements.all, 'block');
