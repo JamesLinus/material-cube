@@ -1,5 +1,5 @@
 var sheet = document.createElement('style');
-var pcolor = 'rgb(0, 73, 249)';
+var pcolor = localStorage.getItem('pcolor');
 var scolor = '#333';
 var randomNumber = Math.random() * 1;
 var w = window.innerWidth;
@@ -111,14 +111,29 @@ function resizeCanvas() {
             },
             draw: function () {
                 ctx.fillRect(this.posX -= this.speedX, this.posY(), this.width, this.height);
-                if (this.posX < 0) {
-                    this.posX = canvas.width;
-                    objects.points.value += 1;
-                    var randomHeight = function () {
-                        return Math.random() * (canvas.height - 200);
-                    };
-                    this.height = randomHeight();
-                    randomNumber = Math.random() * 1;
+                var points = objects.points.value;
+                if (points < 10 || points > 20 && points < 30) {
+                    if (this.posX < 0 || this.posX > canvas.width) {
+                        this.posX = canvas.width;
+                        objects.points.value += 1;
+                        var randomHeight = function () {
+                            return Math.random() * (canvas.height - 200);
+                        };
+                        this.height = randomHeight();
+                        randomNumber = Math.random() * 1;
+                    }
+                }
+                else {
+                    if (this.posX < 0 || this.posX > canvas.width) {
+                        this.speedX *= -1;
+                        this.posX = 0;
+                        objects.points.value += 1;
+                        var randomHeight = function () {
+                            return Math.random() * (canvas.height - 200);
+                        };
+                        this.height = randomHeight();
+                        randomNumber = Math.random() * 1;
+                    }
                 }
             }
         },
@@ -181,6 +196,7 @@ document.getElementById('closesettings').onclick = function () {
 };
 document.getElementById('applysettings').onclick = function () {
     pcolor = document.getElementById('color').value;
+    localStorage.setItem('pcolor', pcolor);
     refreshStyle();
 };
 function refreshStyle() {
@@ -190,4 +206,5 @@ document.body.appendChild(sheet);
 window.onload = function () {
     show(interface.elements.all, 'block');
     resizeCanvas();
+    refreshStyle();
 };

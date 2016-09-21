@@ -1,18 +1,19 @@
 $black: #333;
 $white: #fff;
 $pcolor: rgb(255, 93, 1);
-$shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.67);
+$shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.67);
 body {
   background: $pcolor;
   margin: 0;
   font-style: normal;
   font-family: sans-serif !important;
 }
-
 html {
   overflow: hidden;
 }
-
+img {
+  width: 100%;
+}
 .interface {
   height: 100vh;
   width: 100vw;
@@ -24,7 +25,7 @@ html {
   top: 0;
 }
 .btn {
-  border: 0px solid;
+  border: 0 solid;
   background-color: white;
   color: $pcolor;
   padding: 10px;
@@ -35,43 +36,47 @@ html {
 }
 .action {
   float: right;
-  bottom: 0
+  bottom: 0;
 }
 .btn-icon {
-  font-size: 0px;
+  font-size: 0;
   border-radius: 500px;
   opacity: 0;
-  color: black;
+  color: black !important;
   animation: show 300ms forwards;
   margin: 1vw;
 }
 .btn:hover {
-  background-color: rgb(230, 230, 230)
+  background-color: rgb(230, 230, 230);
+}
+input {
+  border: 0 solid;
+  box-shadow: 0 -2px 0 inset;
+  line-height: 2;
 }
 .btn-raised:hover {
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.67);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.67);
 }
 @keyframes showbuttons {
   0% {
     transform: scale(0.3) rotateZ(45deg);
-    opacity: 0
+    opacity: 0;
   }
   60% {
     transform: scale(1.1) rotateZ(-10deg);
   }
   100% {
     transform: scale(1);
-    opacity: 1
+    opacity: 1;
   }
 }
-
 .btn#info {
   left: 25%;
-  animation-delay: 50ms
+  animation-delay: 50ms;
 }
 .btn#settings {
   left: 75%;
-  animation-delay: 100ms
+  animation-delay: 100ms;
 }
 h4#score {
   font-size: 20px;
@@ -79,30 +84,42 @@ h4#score {
   text-align: center;
 }
 .material-icons.large {
-  font-size: 50px
+  font-size: 50px;
 }
 .material-icons.small {
-  font-size: 35px
+  font-size: 35px;
+}
+.card-popup.scrollable {
+  overflow-y: auto;
+  height: calc(100vh - 40px);
+  top: 0
 }
 .card-popup {
-  box-shadow: 0px 0px 25px 0px black;
+  box-shadow: 0 0 25px 0 black;
   background-color: $white;
   position: absolute;
   bottom: 0;
   left: 0;
+
   width: calc(100vw - 40px);
   animation: show 300ms;
-  padding: 20px
+  padding: 20px;
+
+}
+.action-wrapper {
+  bottom: 0;
+  width: 100%;
+  margin-top: 30px;
+  height: 50px
 }
 @keyframes show {
   0% {
     transform: translateY(100px);
-    opacity: 0
+    opacity: 0;
   }
-
   100% {
     transform: translateY(0px);
-    opacity: 1
+    opacity: 1;
   }
 }
 //

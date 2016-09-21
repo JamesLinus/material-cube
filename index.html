@@ -23,23 +23,35 @@
         <h4 class="btn btn-icon btn-raised" id="score">Score</h4>
       </div>
       <div class="tabs">
-        <div style="display: none" id="infotab"
-         class="info card-popup">
-           <h2>
-             Material cube
-           </h2>
-           <p>This game is currently in beta, reload the game/page to close this</p>
-           <button id="closeinfo" class="btn action">CLOSE</button>
-         </div>
+
+          <div style="display: none" id="infotab"
+           class="info card-popup scrollable">
+             <h2>
+               Material cube
+             </h2>
+             <p>This game is currently in beta! <br>
+                A material based game for your free time. It's made with html5 and it uses jquery and gsap to manipulate and animate the dom. Is complitely free to use. I am going to release the source code on github, so stay tuned.
+             </p>
+             <img src="game.png" alt="">
+             <div class="action-wrapper">
+               <button id="closeinfo" class="btn action">CLOSE</button>
+             </div>
+
+           </div>
+
+
          <div style="display: none" id="settingstab"
           class="info card-popup">
             <h2>
               Settings
             </h2>
             <label for="color">Insert your favourite color: </label>
-            <input id="color" style="border: 0px solid; box-shadow: 0px -2px 0px inset; line-height: 2;" value="" type="text">
-            <button id="applysettings" class="btn action">APPLY</button>
-            <button id="closesettings" class="btn action">CLOSE</button>
+            <input id="color" value="" type="text">
+            <div class="action-wrapper">
+              <button id="applysettings" class="btn action">APPLY</button>
+              <button id="closesettings" class="btn action">CLOSE</button>
+            </div>
+
           </div>
       </div>
 
