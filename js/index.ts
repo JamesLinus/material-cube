@@ -211,6 +211,7 @@ document.getElementById('applysettings').onclick = function() {
   refreshStyle();
 }
 function refreshStyle() {
+  (<HTMLMetaElement>document.getElementById('chrome-color')).content = pcolor;
   sheet.innerHTML = `body {
     background-color: ${pcolor}
   }

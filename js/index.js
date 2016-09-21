@@ -200,6 +200,7 @@ document.getElementById('applysettings').onclick = function () {
     refreshStyle();
 };
 function refreshStyle() {
+    document.getElementById('chrome-color').content = pcolor;
     sheet.innerHTML = "body {\n    background-color: " + pcolor + "\n  }\n  .btn {\n    color: " + pcolor + "\n  }";
 }
 document.body.appendChild(sheet);
