@@ -159,6 +159,10 @@ function setRecord() {
 setRecord();
 function drawStuff() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    objects.tube.speedX += 0.01;
+    if (objects.tube.speedX > 20) {
+        objects.tube.speedX = 1;
+    }
     objects.tube.style();
     objects.bird.draw();
     objects.tube.draw();
