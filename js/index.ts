@@ -1,10 +1,17 @@
 var sheet = document.createElement('style')
 // Set primary color
 var pcolor = localStorage.getItem('pcolor');
-// Set secondary color
-var scolor = '#333';
-var randomNumber = Math.random() * 1;
+var scolor = localStorage.getItem('scolor');
 
+var randomNumber = Math.random() * 1;
+function speedMeter() {
+
+  objects.tube.speedX *= 1.001;
+  if (objects.tube.speedX > canvas.width/50) {
+    objects.tube.speedX *= 0.5
+  }
+
+}
 // Set The basic variables
 var w = window.innerWidth;
 var h = window.innerHeight;
@@ -22,19 +29,23 @@ function gItem(itemtoset) {
     localStorage.getItem(itemtoset)
 }
 var interface = {
-    all: document.getElementById('interface'),
-    elements: {
-        all: document.getElementById('buttoncontainer'),
-        info: document.getElementById('info'),
+        all: document.getElementById('interface'),
+        info: {
+          tab: document.getElementById('infotab'),
+          open: document.getElementById('info'),
+          close: document.getElementById('closeinfo'),
+        },
         play: document.getElementById('play'),
-        settings: document.getElementById('settings'),
+        settings: {
+          tab: document.getElementById('settingstab'),
+          apply: document.getElementById('applysettings'),
+          open: document.getElementById('settings'),
+          close: document.getElementById('closesettings')
+        },
         score: document.getElementById('score')
 
-    },
-    tabs: {
-        infotab: document.getElementById('infotab')
     }
-}
+
 var canvas = <HTMLCanvasElement>document.getElementById('myCanvas');
 var ctx = canvas.getContext("2d");
 
@@ -49,6 +60,11 @@ var objects;
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    ctx.fillStyle = scolor;
+    ctx.shadowBlur = 7;
+    ctx.shadowOffsetY = 2;
+    ctx.shadowColor = '#111';
+    ctx.font = '20px Georgia'
     objects = {
         world: {
             gravity: 0.35
@@ -94,13 +110,6 @@ function resizeCanvas() {
         tube: {
             height: randomHeight(),
             width: 40,
-            style: function() {
-                ctx.fillStyle = '#fcfcfc';
-                ctx.shadowBlur = 7;
-                ctx.shadowOffsetY = 2;
-                ctx.shadowColor = '#111';
-                ctx.font = '20px Georgia'
-            },
             speedX: canvas.width / 100,
             speedY: 0,
             posX: canvas.width * 2,
@@ -116,8 +125,7 @@ function resizeCanvas() {
             },
             draw: function() {
                 ctx.fillRect(this.posX -= this.speedX, this.posY(), this.width, this.height);
-                var points = objects.points.value;
-                if (points < 10 || points > 20 && points < 30) {
+
                   if (this.posX < 0 || this.posX > canvas.width) {
                       this.posX = canvas.width;
                       objects.points.value += 1;
@@ -128,19 +136,7 @@ function resizeCanvas() {
                       randomNumber = Math.random() * 1;
 
                   }
-                } else {
-                  if (this.posX < 0 || this.posX > canvas.width) {
-                      this.speedX *= -1;
-                      this.posX = 0;
-                      objects.points.value += 1;
-                      var randomHeight = function() {
-                          return Math.random() * (canvas.height - 200)
-                      }
-                      this.height = randomHeight();
-                      randomNumber = Math.random() * 1;
 
-                  }
-                }
 
 
             }
@@ -162,62 +158,64 @@ function setRecord() {
     if (objects.points.value > localStorage.getItem('record')) {
         localStorage.setItem('record', objects.points.value);
     }
-    interface.elements.score.innerHTML = 'Record: ' + localStorage.getItem('record');
+    interface.score.innerHTML = 'Record: ' + localStorage.getItem('record');
 }
 setRecord();
 
 function drawStuff() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    objects.tube.speedX += 0.01;
-    if (objects.tube.speedX > 20) {
-      objects.tube.speedX = 1
-    }
-    objects.tube.style();
+    speedMeter();
     objects.bird.draw();
     objects.tube.draw();
     objects.points.draw();
     startGame = window.requestAnimationFrame(drawStuff);
     objects.bird.die();
 }
-function birdFlapStart() {
+function birdFlap() {
     objects.bird.speedY = -10;
 }
 
 canvas.addEventListener('mousedown', function(e) {
-    birdFlapStart();
+    birdFlap();
     e.preventDefault()
 }, false);
 canvas.addEventListener('touchstart', function(e) {
-    birdFlapStart();
+    birdFlap();
     e.preventDefault()
 }, false);
 
-document.getElementById('play').onclick = function() {
+interface.play.onclick = function() {
     drawStuff();
     resizeCanvas();
     hide(interface.all)
 }
-document.getElementById('info').onclick = function() {
-    show(interface.tabs.infotab, 'block')
+interface.info.open.onclick = function() {
+    show(interface.info.tab, 'block')
 }
-document.getElementById('closeinfo').onclick = function() {
-  hide(interface.tabs.infotab)
+interface.info.close.onclick = function() {
+  hide(interface.info.tab)
 }
-document.getElementById('settings').onclick = function() {
-  show(document.getElementById('settingstab'), 'block')
+interface.settings.open.onclick = function() {
+  show(interface.settings.tab, 'block')
 }
-document.getElementById('closesettings').onclick = function() {
-  hide(document.getElementById('settingstab'))
+interface.settings.close.onclick = function() {
+  hide(interface.settings.tab)
 }
-document.getElementById('applysettings').onclick = function() {
-  pcolor = (<HTMLInputElement>document.getElementById('color')).value;
+interface.settings.apply.onclick = function() {
+  pcolor = (<HTMLInputElement>document.getElementById('pcolor')).value;
+  scolor = (<HTMLInputElement>document.getElementById('scolor')).value;
   localStorage.setItem('pcolor', pcolor);
+  localStorage.setItem('scolor', scolor);
   refreshStyle();
 }
 function refreshStyle() {
   (<HTMLMetaElement>document.getElementById('chrome-color')).content = pcolor;
   sheet.innerHTML = `body {
     background-color: ${pcolor}
+  }
+  .btn-icon {
+    background-color: ${scolor} !important;
+    color: ${pcolor} !important
   }
   .btn {
     color: ${pcolor}
@@ -226,7 +224,7 @@ function refreshStyle() {
 document.body.appendChild(sheet);
 window.onload = function() {
 
-    show(interface.elements.all, 'block');
+    show(interface.all);
     resizeCanvas();
     refreshStyle()
 };

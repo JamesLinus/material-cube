@@ -16,7 +16,7 @@
 <body id="body">
     <canvas id="myCanvas"></canvas>
     <div id="interface" class="interface">
-      <div id="buttoncontainer" class="buttoncontainer" style="display: none" class="buttons">
+      <div id="buttoncontainer" class="buttoncontainer" class="buttons">
         <button class="btn btn-raised btn-icon" id="info" type="button" name="button"><i class="material-icons small">info</i></button>
         <button class="btn btn-raised btn-icon" id="play" type="button" name="button"><i class="material-icons large">play_arrow</i></button>
         <button class="btn btn-raised btn-icon" id="settings" type="button" name="button"><i class="material-icons small">settings</i></button>
@@ -25,14 +25,13 @@
       <div class="tabs">
 
           <div style="display: none" id="infotab"
-           class="info card-popup scrollable">
+           class="info card-popup">
              <h2>
                Material cube
              </h2>
              <p>This game is currently in beta! <br>
                 A material based game for your free time. It's made with html5 and it doesn't use any external library. It's complitely free to use. The source code is released on github.
              </p>
-             <img src="game.png" alt="">
              <div class="action-wrapper">
                <button id="closeinfo" class="btn action">CLOSE</button>
              </div>
@@ -45,8 +44,15 @@
             <h2>
               Settings
             </h2>
-            <label for="color">Insert your favourite color: </label>
-            <input id="color" value="" type="text">
+            <div>
+              <label for="color">Background color: </label>
+              <input id="pcolor" value="" type="text">
+            </div>
+            <div>
+              <label for="color">Objects color: </label>
+              <input id="scolor" value="" type="text">
+            </div>
+
             <div class="action-wrapper">
               <button id="applysettings" class="btn action">APPLY</button>
               <button id="closesettings" class="btn action">CLOSE</button>
