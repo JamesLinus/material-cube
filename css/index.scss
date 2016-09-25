@@ -14,6 +14,9 @@ html {
 img {
   width: 100%;
 }
+.flex {
+  display: flex;
+}
 .interface {
   height: 100vh;
   width: 100vw;
@@ -52,7 +55,8 @@ img {
 input {
   border: 0 solid;
   box-shadow: 0 -2px 0 inset;
-  line-height: 2;
+  line-height: 1.5;
+  width: 50%
 }
 .btn-raised:hover {
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.67);
