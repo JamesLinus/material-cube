@@ -1,6 +1,6 @@
 var sheet = document.createElement('style');
-var pcolor = localStorage.getItem('pcolor');
-var scolor = localStorage.getItem('scolor');
+var pcolor = localStorage.getItem('pcolor') || 'black';
+var scolor = localStorage.getItem('scolor') || 'orange';
 var randomNumber = Math.random() * 1;
 function speedMeter() {
     objects.tube.speedX *= 1.001;
@@ -140,6 +140,17 @@ function resizeCanvas() {
             }
         }
     };
+    function birdFlap() {
+        objects.bird.speedY = -canvas.width / 100;
+    }
+    canvas.addEventListener('mousedown', function (e) {
+        birdFlap();
+        e.preventDefault();
+    }, false);
+    canvas.addEventListener('touchstart', function (e) {
+        birdFlap();
+        e.preventDefault();
+    }, false);
 }
 resizeCanvas();
 function setRecord() {
@@ -158,17 +169,6 @@ function drawStuff() {
     startGame = window.requestAnimationFrame(drawStuff);
     objects.bird.die();
 }
-function birdFlap() {
-    objects.bird.speedY = -10;
-}
-canvas.addEventListener('mousedown', function (e) {
-    birdFlap();
-    e.preventDefault();
-}, false);
-canvas.addEventListener('touchstart', function (e) {
-    birdFlap();
-    e.preventDefault();
-}, false);
 interface.play.onclick = function () {
     drawStuff();
     resizeCanvas();
@@ -195,11 +195,15 @@ interface.settings.apply.onclick = function () {
 };
 function refreshStyle() {
     document.getElementById('chrome-color').content = pcolor;
-    sheet.innerHTML = "body {\n    background-color: " + pcolor + "\n  }\n  .btn-icon {\n    background-color: " + scolor + " !important;\n    color: " + pcolor + " !important\n  }\n  .btn {\n    color: " + pcolor + "\n  }";
+    sheet.innerHTML = "body, .box {\n    background-color: " + pcolor + " !important\n  }\n  .btn-icon, .obstacles, .cube {\n    background-color: " + scolor + " !important;\n    color: " + pcolor + " !important\n  }\n  .btn {\n    color: " + pcolor + "\n  }\n  ";
 }
 document.body.appendChild(sheet);
 window.onload = function () {
+    refreshStyle();
+    document.getElementById('loader').className += ' finished';
+    setTimeout(function () {
+        hide(document.getElementById('loader'));
+    }, 2000);
     show(interface.all);
     resizeCanvas();
-    refreshStyle();
 };

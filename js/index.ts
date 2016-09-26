@@ -1,7 +1,7 @@
 var sheet = document.createElement('style')
 // Set primary color
-var pcolor = localStorage.getItem('pcolor');
-var scolor = localStorage.getItem('scolor');
+var pcolor = localStorage.getItem('pcolor') || 'black';
+var scolor = localStorage.getItem('scolor') || 'orange';
 
 var randomNumber = Math.random() * 1;
 function speedMeter() {
@@ -152,6 +152,18 @@ function resizeCanvas() {
             }
         }
     };
+    function birdFlap() {
+        objects.bird.speedY = -canvas.width/100;
+    }
+
+    canvas.addEventListener('mousedown', function(e) {
+        birdFlap();
+        e.preventDefault()
+    }, false);
+    canvas.addEventListener('touchstart', function(e) {
+        birdFlap();
+        e.preventDefault()
+    }, false);
 }
 resizeCanvas();
 function setRecord() {
@@ -171,18 +183,7 @@ function drawStuff() {
     startGame = window.requestAnimationFrame(drawStuff);
     objects.bird.die();
 }
-function birdFlap() {
-    objects.bird.speedY = -10;
-}
 
-canvas.addEventListener('mousedown', function(e) {
-    birdFlap();
-    e.preventDefault()
-}, false);
-canvas.addEventListener('touchstart', function(e) {
-    birdFlap();
-    e.preventDefault()
-}, false);
 
 interface.play.onclick = function() {
     drawStuff();
@@ -210,21 +211,27 @@ interface.settings.apply.onclick = function() {
 }
 function refreshStyle() {
   (<HTMLMetaElement>document.getElementById('chrome-color')).content = pcolor;
-  sheet.innerHTML = `body {
-    background-color: ${pcolor}
+  sheet.innerHTML = `body, .box {
+    background-color: ${pcolor} !important
   }
-  .btn-icon {
+  .btn-icon, .obstacles, .cube {
     background-color: ${scolor} !important;
     color: ${pcolor} !important
   }
   .btn {
     color: ${pcolor}
-  }`;
+  }
+  `;
 }
 document.body.appendChild(sheet);
-window.onload = function() {
 
+window.onload = function() {
+    refreshStyle();
+    document.getElementById('loader').className += ' finished';
+    setTimeout(function() {
+        hide(document.getElementById('loader'));
+    }, 2000);
     show(interface.all);
     resizeCanvas();
-    refreshStyle()
+
 };
