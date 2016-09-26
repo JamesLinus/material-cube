@@ -153,7 +153,7 @@ function resizeCanvas() {
         }
     };
     function birdFlap() {
-        objects.bird.speedY = -canvas.width/100;
+        objects.bird.speedY = -canvas.height/70;
     }
 
     canvas.addEventListener('mousedown', function(e) {
