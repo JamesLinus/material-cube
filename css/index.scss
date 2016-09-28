@@ -162,6 +162,13 @@ h4#score {
   left: 18vw;
   box-shadow: $shadow;
 }
+.load h3 {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%
+}
 .finished {
   animation: finish 1s forwards;
   animation-delay: 1s

@@ -7,6 +7,7 @@ var sounds = {
         src: ['audio/music.mp3'],
         volume: 0.6,
         rate: 0.7
+
     })
 };
 var sheet = document.createElement('style');
@@ -215,9 +216,8 @@ function refreshStyle() {
     sheet.innerHTML = "body, .box {    background-color: " + pcolor + " !important  }  .btn-icon, .obstacles, .cube {    background-color: " + scolor + " !important;    color: " + pcolor + " !important  }  .btn {    color: " + pcolor + "  }  ";
 }
 document.body.appendChild(sheet);
-var loading = setInterval(function() {
-  console.log(document.readyState);
-  if (document.readyState == 'complete') {
+
+  sounds.music.onload = function loaded() {
     refreshStyle();
     document.getElementById('loader').className += ' finished';
     setTimeout(function () {
@@ -226,7 +226,4 @@ var loading = setInterval(function() {
     show(interface.all);
     resizeCanvas();
     sounds.music.play();
-    clearInterval(loading);
-  }
-
-}, 30);
+  };
