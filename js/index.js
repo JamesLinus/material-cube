@@ -6,7 +6,17 @@ var sounds = {
     music: new Howl({
         src: ['audio/music.mp3'],
         volume: 0.6,
-        rate: 0.7
+        rate: 0.7,
+        onload: function () {
+          refreshStyle();
+          document.getElementById('loader').className += ' finished';
+          setTimeout(function () {
+              hide(document.getElementById('loader'));
+          }, 2000);
+          show(interface.all);
+          resizeCanvas();
+          sounds.music.play();
+        }
 
     })
 };
@@ -216,14 +226,3 @@ function refreshStyle() {
     sheet.innerHTML = "body, .box {    background-color: " + pcolor + " !important  }  .btn-icon, .obstacles, .cube {    background-color: " + scolor + " !important;    color: " + pcolor + " !important  }  .btn {    color: " + pcolor + "  }  ";
 }
 document.body.appendChild(sheet);
-
-  sounds.music.onload = function loaded() {
-    refreshStyle();
-    document.getElementById('loader').className += ' finished';
-    setTimeout(function () {
-        hide(document.getElementById('loader'));
-    }, 2000);
-    show(interface.all);
-    resizeCanvas();
-    sounds.music.play();
-  };
