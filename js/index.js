@@ -1,3 +1,14 @@
+var sounds = {
+    flap: new Howl({
+        src: ['audio/flap.mp3'],
+        volume: 0.4
+    }),
+    music: new Howl({
+        src: ['audio/music.mp3'],
+        volume: 0.6,
+        rate: 0.7
+    })
+};
 var sheet = document.createElement('style');
 var pcolor = localStorage.getItem('pcolor') || 'black';
 var scolor = localStorage.getItem('scolor') || 'orange';
@@ -43,7 +54,7 @@ var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext("2d");
 var startGame;
 var randomHeight = function () {
-    return Math.random() * (canvas.height - 200);
+    return Math.random() * (canvas.height - canvas.height / 6);
 };
 var randomWidth = function () {
     return Math.random() * canvas.width;
@@ -59,7 +70,7 @@ function resizeCanvas() {
     ctx.font = '20px Georgia';
     objects = {
         world: {
-            gravity: 0.35
+            gravity: canvas.height / 1000
         },
         bird: {
             height: canvas.height / 10,
@@ -76,11 +87,11 @@ function resizeCanvas() {
             bounce: function () {
                 if (this.posY + this.height > canvas.height) {
                     this.posY += -4;
-                    this.speedY *= -.8;
+                    this.speedY *= -0.8;
                 }
                 else if (this.posY < 0) {
                     this.posY += 4;
-                    this.speedY *= -.8;
+                    this.speedY *= -0.8;
                 }
             },
             draw: function () {
@@ -90,6 +101,8 @@ function resizeCanvas() {
             die: function () {
                 if (((this.posX() > objects.tube.posX || (this.posX() + this.width) > objects.tube.posX) && this.posX() < (objects.tube.posX + objects.tube.width)) && ((this.posY > objects.tube.posY() || (this.posY + this.height) > objects.tube.posY()) && this.posY < (objects.tube.posY() + objects.tube.height))) {
                     setRecord();
+                    sounds.music.rate(0.7);
+                    sounds.music.seek(0);
                     window.cancelAnimationFrame(startGame);
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     objects.tube.posX = canvas.width;
@@ -101,10 +114,10 @@ function resizeCanvas() {
         },
         tube: {
             height: randomHeight(),
-            width: 40,
+            width: canvas.width / 10,
             speedX: canvas.width / 100,
             speedY: 0,
-            posX: canvas.width * 2,
+            posX: canvas.width,
             posY: function () {
                 if (randomNumber > 0.5) {
                     return canvas.height - this.height;
@@ -121,8 +134,8 @@ function resizeCanvas() {
                 if (this.posX < 0 || this.posX > canvas.width) {
                     this.posX = canvas.width;
                     objects.points.value += 1;
-                    var randomHeight = function () {
-                        return Math.random() * (canvas.height - 200);
+                    randomHeight = function () {
+                        return Math.random() * (canvas.height - canvas.height / 6);
                     };
                     this.height = randomHeight();
                     randomNumber = Math.random() * 1;
@@ -142,9 +155,11 @@ function resizeCanvas() {
     };
     function birdFlap() {
         objects.bird.speedY = -canvas.height / 70;
+        sounds.flap.play();
     }
     canvas.addEventListener('mousedown', function (e) {
         birdFlap();
+        sounds.flap.currentTime = 0;
         e.preventDefault();
     }, false);
     canvas.addEventListener('touchstart', function (e) {
@@ -173,6 +188,8 @@ interface.play.onclick = function () {
     drawStuff();
     resizeCanvas();
     hide(interface.all);
+    sounds.music.rate(1);
+    sounds.music.seek(13.5);
 };
 interface.info.open.onclick = function () {
     show(interface.info.tab, 'block');
@@ -195,10 +212,12 @@ interface.settings.apply.onclick = function () {
 };
 function refreshStyle() {
     document.getElementById('chrome-color').content = pcolor;
-    sheet.innerHTML = "body, .box {\n    background-color: " + pcolor + " !important\n  }\n  .btn-icon, .obstacles, .cube {\n    background-color: " + scolor + " !important;\n    color: " + pcolor + " !important\n  }\n  .btn {\n    color: " + pcolor + "\n  }\n  ";
+    sheet.innerHTML = "body, .box {    background-color: " + pcolor + " !important  }  .btn-icon, .obstacles, .cube {    background-color: " + scolor + " !important;    color: " + pcolor + " !important  }  .btn {    color: " + pcolor + "  }  ";
 }
 document.body.appendChild(sheet);
-window.onload = function () {
+var loading = setInterval(function() {
+  console.log(document.readyState);
+  if (document.readyState == 'complete') {
     refreshStyle();
     document.getElementById('loader').className += ' finished';
     setTimeout(function () {
@@ -206,4 +225,8 @@ window.onload = function () {
     }, 2000);
     show(interface.all);
     resizeCanvas();
-};
+    sounds.music.play();
+    clearInterval(loading);
+  }
+
+}, 30);
