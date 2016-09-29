@@ -78,7 +78,18 @@
 
     </script>
     <script src="js/index.js"></script>
-    
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+    <script>
+    var OneSignal = window.OneSignal || [];
+    OneSignal.push(["init", {
+      appId: 'f3a00cd8-401d-4bfb-b837-55988894447c',
+      autoRegister: false, /* Set to true to automatically prompt visitors */
+      subdomainName: 'https://material-cube-netlify.onesignal.com',
+      notifyButton: {
+          enable: true /* Set to false to hide */
+      }
+    }]);
+    </script>
 </body>
 
 </html>
