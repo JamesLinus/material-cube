@@ -65,7 +65,7 @@ var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext("2d");
 var startGame;
 var randomHeight = function () {
-    return Math.random() * (canvas.height - canvas.height / 6);
+    return Math.random() * (canvas.height - canvas.height / 5);
 };
 var randomWidth = function () {
     return Math.random() * canvas.width;
@@ -146,7 +146,7 @@ function resizeCanvas() {
                     this.posX = canvas.width;
                     objects.points.value += 1;
                     randomHeight = function () {
-                        return Math.random() * (canvas.height - canvas.height / 6);
+                        return Math.random() * (canvas.height - canvas.height / 5);
                     };
                     this.height = randomHeight();
                     randomNumber = Math.random() * 1;
