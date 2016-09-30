@@ -1,13 +1,2 @@
 CACHE MANIFEST
 # v1.2 - 2016-09-28
-
-NETWORK:
-index.html
-js/index.js
-css/index.min.css
-game.png
-audio/music.mp3
-audio/flap.mp3
-https://fonts.googleapis.com/icon?family=Material+Icons
-https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.0/howler.min.js
-https://cdn.onesignal.com/sdks/OneSignalSDK.js
