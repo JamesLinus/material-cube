@@ -8,7 +8,7 @@ NETWORK:
 CACHE:
 
 https://fonts.googleapis.com/icon?family=Material+Icons
-http://material-cube.netlify.com/js/howler.min.js
+http://material-cube.netlify.com/js/howler.js
 https://cdn.onesignal.com/sdks/OneSignalSDK.js
 http://material-cube.netlify.com/js/index.js
 http://material-cube.netlify.com/index.html
