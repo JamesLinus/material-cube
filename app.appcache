@@ -2,7 +2,6 @@ CACHE MANIFEST
 # v1.2 - 2016-09-28
 
 NETWORK
-
 index.html
 js/index.js
 css/index.min.css
