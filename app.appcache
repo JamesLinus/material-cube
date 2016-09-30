@@ -1,6 +1,7 @@
 CACHE MANIFEST
+https://fonts.googleapis.com/icon?family=Material+Icons
+https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.0/howler.min.js
+https://cdn.onesignal.com/sdks/OneSignalSDK.js
+http://material-cube.netlify.com/js/index.js
 http://material-cube.netlify.com/index.html
 http://material-cube.netlify.com/css/index.min.css
-http://material-cube.netlify.com/index.html
-http://material-cube.netlify.com/index.html
-http://material-cube.netlify.com/index.html
