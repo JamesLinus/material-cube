@@ -142,7 +142,8 @@ h4#score {
   height: 30vw;
   box-shadow: $shadow;
   background-color: black;
-  transition: 300ms
+  transition: 300ms;
+  animation: loading 1s infinite
 }
 .load .cube {
   width: 10vw;
@@ -179,5 +180,19 @@ h4#score {
   }
   100% {
     opacity: 0;
+  }
+}
+@keyframes loading {
+  0% {
+    transform: scale(1);
+    opacity: 1
+  }
+  50% {
+    transform: scale(0.8);
+    opacity: 0.5
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1
   }
 }
