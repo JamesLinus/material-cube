@@ -1,0 +1,10 @@
+CACHE MANIFEST
+# v0.1
+audio/music.mp3
+audio/flap.mp3
+js/howler.js
+js/index.js
+css/index.min.css
+
+NETWORK:
+*

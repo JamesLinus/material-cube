@@ -15,7 +15,7 @@ var sounds = {
           }, 2000);
           show(interface.all);
           resizeCanvas();
-          sounds.music.play();
+          // sounds.music.play();
         }
 
     })
