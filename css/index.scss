@@ -15,6 +15,8 @@ img {
   width: 100%;
 }
 .flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 .interface {
@@ -22,9 +24,15 @@ img {
   width: 100vw;
   position: absolute;
   z-index: 99;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   top: 0;
 }
 .btn {
@@ -32,6 +40,7 @@ img {
   background-color: white;
   color: $pcolor;
   padding: 10px;
+  -webkit-transition: 300ms;
   transition: 300ms;
 }
 .btn-raised {
@@ -46,7 +55,8 @@ img {
   border-radius: 500px;
   opacity: 0;
   color: black !important;
-  animation: show 300ms forwards;
+  -webkit-animation: show 300ms forwards;
+          animation: show 300ms forwards;
   margin: 1vw;
 }
 .btn:hover {
@@ -61,30 +71,52 @@ input {
 .btn-raised:hover {
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.67);
 }
-@keyframes showbuttons {
+@-webkit-keyframes showbuttons {
   0% {
-    transform: scale(0.3) rotateZ(45deg);
+    -webkit-transform: scale(0.3) rotateZ(45deg);
+            transform: scale(0.3) rotateZ(45deg);
     opacity: 0;
   }
   60% {
-    transform: scale(1.1) rotateZ(-10deg);
+    -webkit-transform: scale(1.1) rotateZ(-10deg);
+            transform: scale(1.1) rotateZ(-10deg);
   }
   100% {
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes showbuttons {
+  0% {
+    -webkit-transform: scale(0.3) rotateZ(45deg);
+            transform: scale(0.3) rotateZ(45deg);
+    opacity: 0;
+  }
+  60% {
+    -webkit-transform: scale(1.1) rotateZ(-10deg);
+            transform: scale(1.1) rotateZ(-10deg);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
     opacity: 1;
   }
 }
 .btn#info {
   left: 25%;
-  animation-delay: 50ms;
+  -webkit-animation-delay: 50ms;
+          animation-delay: 50ms;
 }
 .btn#settings {
   left: 75%;
-  animation-delay: 100ms;
+  -webkit-animation-delay: 100ms;
+          animation-delay: 100ms;
 }
 h4#score {
   font-size: 20px;
-  animation-delay: 150ms;
+  -webkit-animation-delay: 150ms;
+          animation-delay: 150ms;
   text-align: center;
 }
 .material-icons.large {
@@ -106,7 +138,8 @@ h4#score {
   left: 0;
 
   width: calc(100vw - 40px);
-  animation: show 300ms;
+  -webkit-animation: show 300ms;
+          animation: show 300ms;
   padding: 20px;
 
 }
@@ -116,23 +149,43 @@ h4#score {
   margin-top: 30px;
   height: 50px
 }
-@keyframes show {
+@-webkit-keyframes show {
   0% {
-    transform: translateY(100px);
+    -webkit-transform: translateY(100px);
+            transform: translateY(100px);
     opacity: 0;
   }
   100% {
-    transform: translateY(0px);
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+    opacity: 1;
+  }
+}
+@keyframes show {
+  0% {
+    -webkit-transform: translateY(100px);
+            transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
     opacity: 1;
   }
 }
 .load {
   width: 100vw;
   height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   position: absolute;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   z-index: 999999;
   background-color: white;
 
@@ -142,8 +195,10 @@ h4#score {
   height: 30vw;
   box-shadow: $shadow;
   background-color: black;
+  -webkit-transition: 300ms;
   transition: 300ms;
-  animation: loading 1s infinite
+  -webkit-animation: loading 1s infinite;
+          animation: loading 1s infinite
 }
 .load .cube {
   width: 10vw;
@@ -171,8 +226,18 @@ h4#score {
   width: 100%
 }
 .finished {
-  animation: finish 1s forwards;
-  animation-delay: 1s
+  -webkit-animation: finish 1s forwards;
+          animation: finish 1s forwards;
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s
+}
+@-webkit-keyframes finish {
+  0% {
+    opacity: 1
+  }
+  100% {
+    opacity: 0;
+  }
 }
 @keyframes finish {
   0% {
@@ -182,17 +247,37 @@ h4#score {
     opacity: 0;
   }
 }
-@keyframes loading {
+@-webkit-keyframes loading {
   0% {
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
     opacity: 1
   }
   50% {
-    transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
     opacity: 0.5
   }
   100% {
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1
+  }
+}
+@keyframes loading {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1
+  }
+  50% {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+    opacity: 0.5
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
     opacity: 1
   }
 }
