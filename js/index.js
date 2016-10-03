@@ -164,9 +164,9 @@ function resizeCanvas() {
         objects.bird.speedY = -canvas.height / 70;
 
     }
-    canvas.addEventListener('mousedown', function (e) {
+    canvas.addEventListener('mouseup', function (e) {
         birdFlap();
-        
+
         e.preventDefault();
     }, false);
     canvas.addEventListener('touchstart', function (e) {
