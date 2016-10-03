@@ -22,7 +22,7 @@ var scolor = localStorage.getItem('scolor') || 'orange';
 var randomNumber = Math.random() * 1;
 function speedMeter() {
     objects.tube.speedX *= 1.001;
-    if (objects.tube.speedX > canvas.width / 50) {
+    if (objects.tube.speedX > canvas.width / 45) {
         objects.tube.speedX *= 0.5;
     }
 }
@@ -61,7 +61,7 @@ var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext("2d");
 var startGame;
 var randomHeight = function () {
-    return Math.random() * (canvas.height - canvas.height / 5);
+    return Math.random() * ((canvas.height/3)*2);
 };
 var randomWidth = function () {
     return Math.random() * canvas.width;
@@ -122,9 +122,9 @@ function resizeCanvas() {
         tube: {
             height: randomHeight(),
             width: canvas.width / 10,
-            speedX: canvas.width / 100,
+            speedX: canvas.width / 200,
             speedY: 0,
-            posX: canvas.width,
+            posX: canvas.width*2,
             posY: function () {
                 if (randomNumber > 0.5) {
                     return canvas.height - this.height;
@@ -134,15 +134,15 @@ function resizeCanvas() {
                 }
             },
             check: function () {
-                return this.posX;
+                console.log(this.speedX);
             },
             draw: function () {
                 ctx.fillRect(this.posX -= this.speedX, this.posY(), this.width, this.height);
-                if (this.posX < 0 || this.posX > canvas.width) {
+                if (this.posX < -this.width) {
                     this.posX = canvas.width;
                     objects.points.value += 1;
                     randomHeight = function () {
-                        return Math.random() * (canvas.height - canvas.height / 5);
+                        return Math.random() * ((canvas.height/3)*2);
                     };
                     this.height = randomHeight();
                     randomNumber = Math.random() * 1;
