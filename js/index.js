@@ -1,8 +1,4 @@
 var sounds = {
-    flap: new Howl({
-        src: ['audio/flap.mp3'],
-        volume: 0.4
-    }),
     music: new Howl({
         src: ['audio/music.mp3'],
         volume: 0.6,
@@ -166,11 +162,11 @@ function resizeCanvas() {
     };
     function birdFlap() {
         objects.bird.speedY = -canvas.height / 70;
-        sounds.flap.play();
+
     }
     canvas.addEventListener('mousedown', function (e) {
         birdFlap();
-        sounds.flap.currentTime = 0;
+        
         e.preventDefault();
     }, false);
     canvas.addEventListener('touchstart', function (e) {
