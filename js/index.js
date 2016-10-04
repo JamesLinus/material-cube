@@ -93,11 +93,11 @@ function resizeCanvas() {
             },
             bounce: function () {
                 if (this.posY + this.height > canvas.height) {
-                    this.posY += -4;
+                    this.posY += -10;
                     this.speedY *= -0.8;
                 }
                 else if (this.posY < 0) {
-                    this.posY += 4;
+                    this.posY += 10;
                     this.speedY *= -0.8;
                 }
             },
@@ -122,9 +122,9 @@ function resizeCanvas() {
         tube: {
             height: randomHeight(),
             width: canvas.width / 10,
-            speedX: canvas.width / 200,
+            speedX: canvas.width / 150,
             speedY: 0,
-            posX: canvas.width*2,
+            posX: (canvas.width/2)*3,
             posY: function () {
                 if (randomNumber > 0.5) {
                     return canvas.height - this.height;
@@ -173,6 +173,10 @@ function resizeCanvas() {
         birdFlap();
         e.preventDefault();
     }, false);
+    window.addEventListener('keydown', function () {
+        birdFlap();
+    });
+
 }
 resizeCanvas();
 function setRecord() {
