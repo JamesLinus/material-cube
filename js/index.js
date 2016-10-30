@@ -105,7 +105,10 @@ function resizeCanvas() {
                 this.bounce();
                 ctx.fillRect(this.posX(), this.posY += this.speedY += objects.world.gravity, this.width, this.height);
             },
-            die: function () {
+            die: function (x) {
+              if (x === true) {
+
+              } else {
                 if (((this.posX() > objects.tube.posX || (this.posX() + this.width) > objects.tube.posX) && this.posX() < (objects.tube.posX + objects.tube.width)) && ((this.posY > objects.tube.posY() || (this.posY + this.height) > objects.tube.posY()) && this.posY < (objects.tube.posY() + objects.tube.height))) {
                     setRecord();
                     sounds.music.rate(0.7);
@@ -117,6 +120,8 @@ function resizeCanvas() {
                     this.posY = 0;
                     show(interface.all);
                 }
+              }
+
             }
         },
         tube: {
@@ -186,6 +191,7 @@ function setRecord() {
     interface.score.innerHTML = 'Record: ' + localStorage.getItem('record');
 }
 setRecord();
+var shish = false;
 function drawStuff() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     speedMeter();
@@ -193,7 +199,7 @@ function drawStuff() {
     objects.tube.draw();
     objects.points.draw();
     startGame = window.requestAnimationFrame(drawStuff);
-    objects.bird.die();
+    objects.bird.die(shish);
 }
 interface.play.onclick = function () {
     drawStuff();
@@ -226,3 +232,12 @@ function refreshStyle() {
     sheet.innerHTML = "body, .box {    background-color: " + pcolor + " !important  }  .btn-icon, .obstacles, .cube {    background-color: " + scolor + " !important;    color: " + pcolor + " !important  }  .btn {    color: " + pcolor + "  }  ";
 }
 document.body.appendChild(sheet);
+
+document.getElementById('trucchi').onclick = function(){
+  if (shish === true) {
+    shish = false;
+  } else {
+    shish = true;
+  }
+
+};
