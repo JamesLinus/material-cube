@@ -233,7 +233,7 @@ function refreshStyle() {
 }
 document.body.appendChild(sheet);
 
-document.getElementById('trucchi').onclick = function(){
+document.getElementById('shish').onclick = function(){
   if (shish === true) {
     shish = false;
   } else {
